@@ -28,7 +28,6 @@ const lightboxImage = document.querySelector("#lightboxImage");
 const lightboxCaption = document.querySelector("#lightboxCaption");
 const lightboxClose = document.querySelector("#lightboxClose");
 const wishlistButton = document.querySelector("#wishlistButton");
-const wishlistHeaderButton = document.querySelector("#wishlistHeaderButton");
 const cartButton = document.querySelector("#cartButton");
 const toast = document.querySelector("#toast");
 
@@ -74,7 +73,6 @@ function updateWishlist() {
   wishlistButton.querySelector("span:last-child").textContent = isWishlisted
     ? "リストに追加済み"
     : "ウィッシュリスト";
-  wishlistHeaderButton.querySelector("span").textContent = isWishlisted ? "♥" : "♡";
 }
 
 function toggleWishlist() {
@@ -109,7 +107,6 @@ nextButton.addEventListener("click", () => showSlide(activeSlide + 1));
 expandButton.addEventListener("click", openLightbox);
 lightboxClose.addEventListener("click", closeLightbox);
 wishlistButton.addEventListener("click", toggleWishlist);
-wishlistHeaderButton.addEventListener("click", toggleWishlist);
 
 lightbox.addEventListener("click", (event) => {
   if (event.target === lightbox) closeLightbox();
