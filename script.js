@@ -1,120 +1,134 @@
-const ideas = [
-  { category: "create", label: "CREATE", time: "10 MIN", text: "机の上にある3つの物だけで、静物画を撮ってみる。" },
-  { category: "create", label: "CREATE", time: "15 MIN", text: "好きな曲のタイトルから、架空の本の表紙を描く。" },
-  { category: "create", label: "CREATE", time: "5 MIN", text: "今日聞こえた音を、言葉を使わず線だけで表現する。" },
-  { category: "create", label: "CREATE", time: "20 MIN", text: "冷蔵庫にある食材で、名前のないドリンクをつくる。" },
-  { category: "reset", label: "RESET", time: "5 MIN", text: "窓を開けて、いちばん遠くに見えるものを眺める。" },
-  { category: "reset", label: "RESET", time: "10 MIN", text: "スマホを置いて、温かい飲みものを最後まで味わう。" },
-  { category: "reset", label: "RESET", time: "15 MIN", text: "小さな引き出しをひとつだけ、空っぽにして整える。" },
-  { category: "reset", label: "RESET", time: "8 MIN", text: "照明を少し暗くして、好きな香りと深呼吸を楽しむ。" },
-  { category: "explore", label: "EXPLORE", time: "20 MIN", text: "いつもの道で、好きな色を5つ集めて写真に残す。" },
-  { category: "explore", label: "EXPLORE", time: "30 MIN", text: "行ったことのない近所の店で、小さなものをひとつ買う。" },
-  { category: "explore", label: "EXPLORE", time: "15 MIN", text: "次の角では普段と反対に曲がり、知らない景色を探す。" },
-  { category: "explore", label: "EXPLORE", time: "25 MIN", text: "カメラを持たずに散歩して、帰宅後に景色をひとつ描く。" },
+const slides = [
+  {
+    src: "img/2026-08-17_174320.png",
+    alt: "強い光を放つ施設中央の装置",
+    caption: "隔離区画の中央で稼働を続ける、正体不明のエネルギーコア。",
+  },
+  {
+    src: "img/2026-08-17_174352.png",
+    alt: "非常灯だけが点灯する暗い通路",
+    caption: "通信の途絶えた居住ブロック。光源の残量には限りがある。",
+  },
+  {
+    src: "img/2026-08-17_174403.png",
+    alt: "暗闇の中で目を覚ます破損した探索ロボット",
+    caption: "施設内で発見された旧式探索ユニット。敵か、最後の味方か。",
+  },
 ];
 
-const root = document.documentElement;
-const themeButton = document.querySelector("#themeButton");
-const themeIcon = themeButton.querySelector(".theme-icon");
-const themeLabel = themeButton.querySelector(".theme-label");
-const moodButtons = [...document.querySelectorAll(".mood-button")];
-const generateButton = document.querySelector("#generateButton");
-const saveButton = document.querySelector("#saveButton");
-const ideaCard = document.querySelector("#ideaCard");
-const ideaCategory = document.querySelector("#ideaCategory");
-const ideaTime = document.querySelector("#ideaTime");
-const ideaText = document.querySelector("#ideaText");
+const mainImage = document.querySelector("#mainImage");
+const mediaStage = document.querySelector("#mediaStage");
+const mediaLabel = document.querySelector("#mediaLabel");
+const thumbnails = [...document.querySelectorAll(".thumbnail")];
+const previousButton = document.querySelector("#previousButton");
+const nextButton = document.querySelector("#nextButton");
+const expandButton = document.querySelector("#expandButton");
+const lightbox = document.querySelector("#lightbox");
+const lightboxImage = document.querySelector("#lightboxImage");
+const lightboxCaption = document.querySelector("#lightboxCaption");
+const lightboxClose = document.querySelector("#lightboxClose");
+const wishlistButton = document.querySelector("#wishlistButton");
+const wishlistHeaderButton = document.querySelector("#wishlistHeaderButton");
+const cartButton = document.querySelector("#cartButton");
 const toast = document.querySelector("#toast");
 
-let activeCategory = "all";
-let currentIdeaIndex = 8;
+let activeSlide = 2;
 let toastTimer;
-const savedIdeas = new Set(JSON.parse(localStorage.getItem("spark-saved") || "[]"));
-
-function applyTheme(theme) {
-  root.dataset.theme = theme;
-  const isDark = theme === "dark";
-  themeIcon.textContent = isDark ? "☾" : "☼";
-  themeLabel.textContent = isDark ? "DARK" : "LIGHT";
-  themeButton.setAttribute("aria-label", isDark ? "ライトモードに切り替える" : "ダークモードに切り替える");
-  localStorage.setItem("spark-theme", theme);
-}
-
-function updateSaveButton() {
-  const isSaved = savedIdeas.has(currentIdeaIndex);
-  saveButton.setAttribute("aria-pressed", String(isSaved));
-  saveButton.querySelector(".save-icon").textContent = isSaved ? "♥" : "♡";
-  saveButton.querySelector(".save-label").textContent = isSaved ? "SAVED" : "SAVE";
-}
+let isWishlisted = localStorage.getItem("echo-void-wishlist") === "true";
 
 function showToast(message) {
   toast.textContent = message;
   toast.classList.add("is-visible");
   window.clearTimeout(toastTimer);
-  toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 1800);
+  toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2200);
 }
 
-function showIdea(index) {
-  ideaCard.classList.add("is-changing");
+function showSlide(index) {
+  const nextIndex = (index + slides.length) % slides.length;
+  mediaStage.classList.add("is-changing");
 
   window.setTimeout(() => {
-    const idea = ideas[index];
-    currentIdeaIndex = index;
-    ideaCategory.textContent = idea.label;
-    ideaTime.textContent = idea.time;
-    ideaText.textContent = idea.text;
-    updateSaveButton();
-    ideaCard.classList.remove("is-changing");
-  }, 160);
-}
+    activeSlide = nextIndex;
+    const slide = slides[activeSlide];
+    mainImage.src = slide.src;
+    mainImage.alt = slide.alt;
+    mediaLabel.textContent = `SCREENSHOT ${String(activeSlide + 1).padStart(2, "0")}`;
 
-function generateIdea() {
-  const availableIndexes = ideas
-    .map((idea, index) => ({ idea, index }))
-    .filter(({ idea, index }) => {
-      const matchesCategory = activeCategory === "all" || idea.category === activeCategory;
-      return matchesCategory && index !== currentIdeaIndex;
-    })
-    .map(({ index }) => index);
-
-  const nextIndex = availableIndexes[Math.floor(Math.random() * availableIndexes.length)];
-  showIdea(nextIndex ?? currentIdeaIndex);
-}
-
-const savedTheme = localStorage.getItem("spark-theme");
-const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-applyTheme(savedTheme || preferredTheme);
-updateSaveButton();
-
-themeButton.addEventListener("click", () => {
-  applyTheme(root.dataset.theme === "dark" ? "light" : "dark");
-});
-
-moodButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    activeCategory = button.dataset.category;
-    moodButtons.forEach((item) => {
-      const isActive = item === button;
-      item.classList.toggle("is-active", isActive);
-      item.setAttribute("aria-pressed", String(isActive));
+    thumbnails.forEach((thumbnail, thumbnailIndex) => {
+      const isActive = thumbnailIndex === activeSlide;
+      thumbnail.classList.toggle("is-active", isActive);
+      if (isActive) {
+        thumbnail.setAttribute("aria-current", "true");
+      } else {
+        thumbnail.removeAttribute("aria-current");
+      }
     });
-    generateIdea();
-  });
+
+    mediaStage.classList.remove("is-changing");
+  }, 170);
+}
+
+function updateWishlist() {
+  wishlistButton.setAttribute("aria-pressed", String(isWishlisted));
+  wishlistButton.querySelector("span:first-child").textContent = isWishlisted ? "♥" : "♡";
+  wishlistButton.querySelector("span:last-child").textContent = isWishlisted
+    ? "リストに追加済み"
+    : "ウィッシュリスト";
+  wishlistHeaderButton.querySelector("span").textContent = isWishlisted ? "♥" : "♡";
+}
+
+function toggleWishlist() {
+  isWishlisted = !isWishlisted;
+  localStorage.setItem("echo-void-wishlist", String(isWishlisted));
+  updateWishlist();
+  showToast(isWishlisted ? "ウィッシュリストに追加しました" : "ウィッシュリストから削除しました");
+}
+
+function openLightbox() {
+  const slide = slides[activeSlide];
+  lightboxImage.src = slide.src;
+  lightboxImage.alt = slide.alt;
+  lightboxCaption.textContent = slide.caption;
+  lightbox.hidden = false;
+  document.body.classList.add("is-locked");
+  lightboxClose.focus();
+}
+
+function closeLightbox() {
+  lightbox.hidden = true;
+  document.body.classList.remove("is-locked");
+  expandButton.focus();
+}
+
+thumbnails.forEach((thumbnail) => {
+  thumbnail.addEventListener("click", () => showSlide(Number(thumbnail.dataset.index)));
 });
 
-generateButton.addEventListener("click", generateIdea);
+previousButton.addEventListener("click", () => showSlide(activeSlide - 1));
+nextButton.addEventListener("click", () => showSlide(activeSlide + 1));
+expandButton.addEventListener("click", openLightbox);
+lightboxClose.addEventListener("click", closeLightbox);
+wishlistButton.addEventListener("click", toggleWishlist);
+wishlistHeaderButton.addEventListener("click", toggleWishlist);
 
-saveButton.addEventListener("click", () => {
-  if (savedIdeas.has(currentIdeaIndex)) {
-    savedIdeas.delete(currentIdeaIndex);
-    showToast("お気に入りから外しました");
-  } else {
-    savedIdeas.add(currentIdeaIndex);
-    showToast("お気に入りに保存しました");
+lightbox.addEventListener("click", (event) => {
+  if (event.target === lightbox) closeLightbox();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (!lightbox.hidden && event.key === "Escape") {
+    closeLightbox();
+    return;
   }
 
-  localStorage.setItem("spark-saved", JSON.stringify([...savedIdeas]));
-  updateSaveButton();
+  if (lightbox.hidden && event.key === "ArrowLeft") showSlide(activeSlide - 1);
+  if (lightbox.hidden && event.key === "ArrowRight") showSlide(activeSlide + 1);
 });
 
-document.querySelector("#currentYear").textContent = new Date().getFullYear();
+cartButton.addEventListener("click", () => {
+  cartButton.textContent = "カートに追加済み";
+  cartButton.disabled = true;
+  showToast("ECHO//VOIDをカートに追加しました");
+});
+
+updateWishlist();
