@@ -22,39 +22,6 @@
     <header class="global-header" aria-hidden="true"></header>
 
     <main class="store-page">
-      <div class="store-nav" aria-label="ストア内ナビゲーション">
-        <div class="store-links">
-          <a href="#">ホーム</a>
-          <a href="#">見つける</a>
-          <a href="#">カテゴリー</a>
-        </div>
-        <label class="search-box">
-          <span class="visually-hidden">ゲームを検索</span>
-          <input type="search" placeholder="ストアを検索" />
-          <span aria-hidden="true">⌕</span>
-        </label>
-      </div>
-
-      <div class="breadcrumb" aria-label="パンくずリスト">
-        <a href="#">すべてのゲーム</a>
-        <span aria-hidden="true">/</span>
-        <a href="#">アドベンチャー</a>
-        <span aria-hidden="true">/</span>
-        <span>ECHO//VOID</span>
-      </div>
-
-      <section class="game-heading" aria-labelledby="gameTitle">
-        <div>
-          <p class="status-line"><span></span> 早期アクセス</p>
-          <h1 id="gameTitle">ECHO<span>//</span>VOID</h1>
-        </div>
-        <div class="heading-meta">
-          <span>オンライン協力</span>
-          <span>最大4人</span>
-          <span>日本語対応</span>
-        </div>
-      </section>
-
       <section class="showcase" aria-label="ゲームの紹介">
         <div class="media-gallery">
           <div class="media-stage" id="mediaStage">
@@ -99,6 +66,10 @@
             </div>
           </div>
 
+          <p class="game-description">
+            通信の途絶えた軌道研究施設へ潜入し、残された記録を回収せよ。光には限りがあり、暗闇の声は仲間のものとは限らない。最大4人で挑む協力型SFホラー。
+          </p>
+
           <div class="tag-area">
             <p>ユーザーが定義した人気タグ</p>
             <div class="tags">
@@ -112,47 +83,6 @@
         </aside>
       </section>
 
-      <section class="purchase-panel" aria-labelledby="purchaseTitle">
-        <div>
-          <p class="eyebrow">EARLY ACCESS EDITION</p>
-          <h2 id="purchaseTitle">ECHO//VOIDを入手</h2>
-          <p>Windows / macOS　・　オンライン協力プレイ対応</p>
-        </div>
-        <div class="purchase-actions">
-          <button class="wishlist-button" id="wishlistButton" type="button" aria-pressed="false">
-            <span aria-hidden="true">♡</span>
-            <span>ウィッシュリスト</span>
-          </button>
-          <div class="price-box">
-            <span class="price">¥2,300</span>
-            <button id="cartButton" type="button">カートに入れる</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="about-section" id="about" aria-labelledby="aboutTitle">
-        <div class="about-heading">
-          <p class="eyebrow">ABOUT THIS GAME</p>
-          <h2 id="aboutTitle">聞こえるものを、<br />信じてはいけない。</h2>
-        </div>
-        <div class="feature-grid">
-          <article>
-            <span>01</span>
-            <h3>協力して生き残る</h3>
-            <p>仲間と役割を分担し、限られた電力と酸素を管理。ひとつの判断が全員の運命を変えます。</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>変化する施設</h3>
-            <p>プレイのたびに通路と脅威が変化。同じ探索ルートは二度と現れません。</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>声を模倣する敵</h3>
-            <p>敵はボイスチャットを学習し、仲間の声で呼びかけます。返事をする前に確かめてください。</p>
-          </article>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer" aria-hidden="true"></footer>
@@ -163,6 +93,5 @@
       <p id="lightboxCaption"></p>
     </div>
 
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </body>
 </html>

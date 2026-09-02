@@ -27,20 +27,8 @@ const lightbox = document.querySelector("#lightbox");
 const lightboxImage = document.querySelector("#lightboxImage");
 const lightboxCaption = document.querySelector("#lightboxCaption");
 const lightboxClose = document.querySelector("#lightboxClose");
-const wishlistButton = document.querySelector("#wishlistButton");
-const cartButton = document.querySelector("#cartButton");
-const toast = document.querySelector("#toast");
 
 let activeSlide = 2;
-let toastTimer;
-let isWishlisted = localStorage.getItem("echo-void-wishlist") === "true";
-
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add("is-visible");
-  window.clearTimeout(toastTimer);
-  toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2200);
-}
 
 function showSlide(index) {
   const nextIndex = (index + slides.length) % slides.length;
@@ -67,21 +55,6 @@ function showSlide(index) {
   }, 170);
 }
 
-function updateWishlist() {
-  wishlistButton.setAttribute("aria-pressed", String(isWishlisted));
-  wishlistButton.querySelector("span:first-child").textContent = isWishlisted ? "♥" : "♡";
-  wishlistButton.querySelector("span:last-child").textContent = isWishlisted
-    ? "リストに追加済み"
-    : "ウィッシュリスト";
-}
-
-function toggleWishlist() {
-  isWishlisted = !isWishlisted;
-  localStorage.setItem("echo-void-wishlist", String(isWishlisted));
-  updateWishlist();
-  showToast(isWishlisted ? "ウィッシュリストに追加しました" : "ウィッシュリストから削除しました");
-}
-
 function openLightbox() {
   const slide = slides[activeSlide];
   lightboxImage.src = slide.src;
@@ -106,7 +79,6 @@ previousButton.addEventListener("click", () => showSlide(activeSlide - 1));
 nextButton.addEventListener("click", () => showSlide(activeSlide + 1));
 expandButton.addEventListener("click", openLightbox);
 lightboxClose.addEventListener("click", closeLightbox);
-wishlistButton.addEventListener("click", toggleWishlist);
 
 lightbox.addEventListener("click", (event) => {
   if (event.target === lightbox) closeLightbox();
@@ -121,11 +93,3 @@ document.addEventListener("keydown", (event) => {
   if (lightbox.hidden && event.key === "ArrowLeft") showSlide(activeSlide - 1);
   if (lightbox.hidden && event.key === "ArrowRight") showSlide(activeSlide + 1);
 });
-
-cartButton.addEventListener("click", () => {
-  cartButton.textContent = "カートに追加済み";
-  cartButton.disabled = true;
-  showToast("ECHO//VOIDをカートに追加しました");
-});
-
-updateWishlist();

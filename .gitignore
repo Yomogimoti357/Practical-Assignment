@@ -1,0 +1,7 @@
+# 編集指示用のスクリーンショット
+Changeimg/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
