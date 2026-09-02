@@ -300,9 +300,12 @@ img {
   line-height: 0.9;
 }
 
-.game-heading h1 span,
-.cover-title strong span {
+.game-heading h1 span {
   color: var(--blue);
+}
+
+.cover-title strong span {
+  color: #ffd84a;
 }
 
 .heading-meta {
