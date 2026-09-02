@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="気分に合わせて、小さなひらめきを見つけるアイデアジェネレーター。"
+    />
+    <title>SPARK — 小さなひらめき</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="logo" href="#top" aria-label="SPARK ホーム">
+        <span class="logo-mark" aria-hidden="true">✦</span>
+        <span>SPARK</span>
+      </a>
+
+      <button class="theme-button" id="themeButton" type="button" aria-label="配色を切り替える">
+        <span class="theme-icon" aria-hidden="true">☼</span>
+        <span class="theme-label">LIGHT</span>
+      </button>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="heroTitle">
+        <p class="eyebrow">A TINY IDEA GENERATOR</p>
+        <h1 id="heroTitle">
+          退屈な今日に、<br />
+          <span>小さなひらめき</span>を。
+        </h1>
+        <p class="hero-copy">
+          気分をひとつ選んで、ボタンを押すだけ。<br />
+          5分から始められるアイデアを届けます。
+        </p>
+        <a class="scroll-link" href="#generator">
+          <span>IDEAを見つける</span>
+          <span aria-hidden="true">↓</span>
+        </a>
+      </section>
+
+      <section class="generator-section" id="generator" aria-labelledby="generatorTitle">
+        <div class="section-heading">
+          <div>
+            <p class="section-number">01 / CHOOSE A MOOD</p>
+            <h2 id="generatorTitle">今はどんな気分？</h2>
+          </div>
+          <p class="section-note">選ばなくてもOK。<br />ランダムにお届けします。</p>
+        </div>
+
+        <div class="mood-list" role="group" aria-label="アイデアのカテゴリ">
+          <button class="mood-button is-active" type="button" data-category="all" aria-pressed="true">
+            <span aria-hidden="true">✦</span> すべて
+          </button>
+          <button class="mood-button" type="button" data-category="create" aria-pressed="false">
+            <span aria-hidden="true">●</span> つくりたい
+          </button>
+          <button class="mood-button" type="button" data-category="reset" aria-pressed="false">
+            <span aria-hidden="true">▲</span> ととのえたい
+          </button>
+          <button class="mood-button" type="button" data-category="explore" aria-pressed="false">
+            <span aria-hidden="true">■</span> でかけたい
+          </button>
+        </div>
+
+        <article class="idea-card" id="ideaCard">
+          <div class="card-topline">
+            <span class="idea-category" id="ideaCategory">EXPLORE</span>
+            <span class="idea-time" id="ideaTime">20 MIN</span>
+          </div>
+
+          <div class="idea-content" aria-live="polite" aria-atomic="true">
+            <p class="idea-kicker">TODAY'S TINY SPARK</p>
+            <h3 id="ideaText">いつもの道で、好きな色を5つ集めて写真に残す。</h3>
+          </div>
+
+          <div class="card-actions">
+            <button class="primary-button" id="generateButton" type="button">
+              <span>別のIDEAを見る</span>
+              <span class="button-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button class="save-button" id="saveButton" type="button" aria-pressed="false">
+              <span class="save-icon" aria-hidden="true">♡</span>
+              <span class="save-label">SAVE</span>
+            </button>
+          </div>
+        </article>
+      </section>
+
+      <section class="manifesto" aria-label="SPARKのコンセプト">
+        <p class="section-number">02 / OUR PHILOSOPHY</p>
+        <p class="manifesto-text">
+          大きな変化は、<br />
+          たいてい<span>小さな好奇心</span>から始まる。
+        </p>
+        <div class="orbit" aria-hidden="true">
+          <span class="orbit-star">✦</span>
+          <span class="orbit-text">STAY CURIOUS • START SMALL • </span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>MADE FOR CURIOUS MINDS.</p>
+      <p>© <span id="currentYear"></span> SPARK</p>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">お気に入りに保存しました</div>
+  </body>
+</html>
