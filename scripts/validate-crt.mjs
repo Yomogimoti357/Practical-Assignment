@@ -37,7 +37,8 @@ const checks = {
   "企画書原本をダウンロードできる":
     /web-camera-body-linked-game-plan\.pdf/.test(homeHtml) &&
     /download="Webカメラを用いた身体連動型ゲーム企画書\.pdf"/.test(homeHtml) &&
-    existsSync(new URL("../public/assets/documents/web-camera-body-linked-game-plan.pdf", import.meta.url)),
+    existsSync(new URL("../public/assets/documents/web-camera-body-linked-game-plan.pdf", import.meta.url)) &&
+    existsSync(new URL("../assets/documents/web-camera-body-linked-game-plan.pdf", import.meta.url)),
   "トップページ下部から5記事を選べる":
     /id="evaluations"/.test(homeHtml) &&
     (homeHtml.match(/articles\.html\?article=/g) ?? []).length === 5,
