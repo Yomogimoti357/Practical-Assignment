@@ -35,7 +35,7 @@ npm run dev
 
 - No.1：`video/Video Project 1.mp4`
 - No.2：`img_graphic/2026-09-09_042128.png`
-- No.3：`video/Desktop 2026.09.09 - 07.53.09.02.mp4`
+- No.3：`video/Video Project 2.mp4`
 - No.4：`img_graphic` の7画像（サムネイルで切り替え）
 - No.5：`img/2026-08-17_174403.png`
 

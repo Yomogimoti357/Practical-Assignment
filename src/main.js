@@ -9,7 +9,7 @@ const graphicCorridorBefore = new URL("../img_graphic/2026-09-09_061818.png", im
 const gameMenuImage = new URL("../img_graphic/2026-09-09_042128.png", import.meta.url).href;
 const completionImage = new URL("../img/2026-08-17_174403.png", import.meta.url).href;
 const projectVideo1 = new URL("../video/Video Project 1.mp4", import.meta.url).href;
-const desktopWebcamVideo = new URL("../video/Desktop 2026.09.09 - 07.53.09.02.mp4", import.meta.url).href;
+const projectVideo2 = new URL("../video/Video Project 2.mp4", import.meta.url).href;
 
 const CRT_CONFIG = Object.freeze({
   noiseFPS: 120,
@@ -82,8 +82,8 @@ const ARTICLES = Object.freeze([
     ],
     tags: ["設定保存", "例外処理", "負荷対策"],
     image: "",
-    video: desktopWebcamVideo,
-    videoLabel: "Webカメラ映像による状態判別を紹介するデスクトップ録画",
+    video: projectVideo2,
+    videoLabel: "Webカメラ映像による状態判別を紹介するProject 2プレイ動画",
     imageAlt: "カメラ選択と設定を行う画面",
     imageHint: "カメラ選択または設定画面を配置",
   },

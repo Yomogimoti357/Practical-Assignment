@@ -73,12 +73,12 @@ const checks = {
     /className = "image-gallery__button"/.test(javascript),
   "指定メディアをNo.1・2・3・5へ割り当てている":
     /Video Project 1\.mp4/.test(javascript) &&
-    /Desktop 2026\.09\.09 - 07\.53\.09\.02\.mp4/.test(javascript) &&
+    /Video Project 2\.mp4/.test(javascript) &&
     /2026-09-09_042128\.png/.test(javascript) &&
     /2026-08-17_174403\.png/.test(javascript) &&
     /EVALUATION 01[\s\S]*?video:\s*projectVideo1/.test(javascript) &&
     /EVALUATION 02[\s\S]*?image:\s*gameMenuImage/.test(javascript) &&
-    /EVALUATION 03[\s\S]*?video:\s*desktopWebcamVideo/.test(javascript) &&
+    /EVALUATION 03[\s\S]*?video:\s*projectVideo2/.test(javascript) &&
     /EVALUATION 05[\s\S]*?image:\s*completionImage/.test(javascript),
   "No.3にWebカメラ判定とゲームオーバー条件を明記している":
     /EVALUATION 03 \/ USABILITY[\s\S]*?Webカメラから取得した映像[\s\S]*?現実の身体を動かす[\s\S]*?ゲームオーバー/.test(
@@ -90,9 +90,7 @@ const checks = {
     /articleVideo\.load\(\)/.test(javascript),
   "通常の静的サーバーでもメディアURLを解決できる":
     /new URL\("\.\.\/video\/Video Project 1\.mp4", import\.meta\.url\)\.href/.test(javascript) &&
-    /new URL\("\.\.\/video\/Desktop 2026\.09\.09 - 07\.53\.09\.02\.mp4", import\.meta\.url\)\.href/.test(
-      javascript,
-    ),
+    /new URL\("\.\.\/video\/Video Project 2\.mp4", import\.meta\.url\)\.href/.test(javascript),
   "No.4の全画像をサムネイルで切り替えられる":
     /function showGalleryImage\(/.test(javascript) &&
     /articleImages\.forEach\(\(image, imageIndex\)/.test(javascript) &&
