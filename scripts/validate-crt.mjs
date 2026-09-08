@@ -80,6 +80,10 @@ const checks = {
     /EVALUATION 02[\s\S]*?image:\s*gameMenuImage/.test(javascript) &&
     /EVALUATION 03[\s\S]*?video:\s*projectVideo2/.test(javascript) &&
     /EVALUATION 05[\s\S]*?image:\s*completionImage/.test(javascript),
+  "No.3にWebカメラ判定とゲームオーバー条件を明記している":
+    /EVALUATION 03 \/ USABILITY[\s\S]*?Webカメラから取得した映像[\s\S]*?現実の身体を動かす[\s\S]*?ゲームオーバー/.test(
+      javascript,
+    ),
   "動画を操作可能なHTMLで表示する":
     /<video id="article-video"[\s\S]*?controls[\s\S]*?playsinline/.test(articlesHtml) &&
     /articleVideo\.src = article\.video/.test(javascript) &&
