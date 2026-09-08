@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="ホラーゲーム『Monitor』の開発評価記事" />
+    <meta name="theme-color" content="#070806" />
+    <title>MONITOR — Evaluation Files</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="articles-page">
+    <main id="app" class="app" aria-label="ゲーム『Monitor』評価記事">
+      <section id="crt-screen" class="crt-screen" aria-label="CRTモニター風の記事ビューア">
+        <header class="crt-header">
+          <a class="back-link" href="./index.html#evaluations" aria-label="トップページの記事一覧へ戻る">‹ BACK</a>
+          <div class="brand-block">
+            <span class="brand-block__signal" aria-hidden="true"></span>
+            <div><p>WEB GAME ARCHIVE</p><strong>MONITOR</strong></div>
+          </div>
+          <p id="article-position" class="article-position" aria-live="polite">01 / 05</p>
+        </header>
+
+        <div id="crt-content" class="crt-content">
+          <section class="article-stage" aria-label="選択中の記事">
+            <figure class="article-visual">
+              <video id="article-video" controls playsinline preload="metadata" hidden>
+                お使いのブラウザは動画再生に対応していません。
+              </video>
+              <img id="article-image" alt="" hidden />
+              <div id="image-placeholder" class="image-placeholder">
+                <span id="image-slot-number" class="image-placeholder__number">IMAGE 01</span>
+                <strong>16 : 9</strong>
+                <p id="image-hint">身体静止判定中のゲーム画面を配置</p>
+              </div>
+              <div id="image-gallery" class="image-gallery" hidden>
+                <div id="image-gallery-tabs" class="image-gallery__tabs" role="group" aria-label="No.4の画像を選択"></div>
+              </div>
+              <figcaption id="image-caption">SCREENSHOT PLACEHOLDER</figcaption>
+              <button id="previous-article" class="article-arrow article-arrow--previous" type="button" aria-label="前の記事を表示"><span aria-hidden="true">‹</span></button>
+              <button id="next-article" class="article-arrow article-arrow--next" type="button" aria-label="次の記事を表示"><span aria-hidden="true">›</span></button>
+            </figure>
+
+            <article id="article-panel" class="article-detail" role="tabpanel" aria-live="polite" tabindex="0">
+              <p id="article-kicker" class="article-kicker">EVALUATION 01</p>
+              <h1 id="article-title">身体入力が生む緊張</h1>
+              <p id="article-lead" class="article-lead">止まるのは、画面内のキャラクターだけではありません。</p>
+              <div id="article-body" class="article-body"></div>
+              <ul id="article-tags" class="article-tags" aria-label="記事の要点"></ul>
+            </article>
+          </section>
+
+          <nav class="article-picker" aria-label="記事を選択">
+            <div class="article-picker__heading"><p>SELECT FILE</p><span>クリック、または矢印キーで切り替え</span></div>
+            <div id="article-tabs" class="article-tabs" role="tablist"></div>
+          </nav>
+        </div>
+
+        <canvas id="crt-noise" class="crt-noise" aria-hidden="true"></canvas>
+        <div class="crt-scanlines" aria-hidden="true"></div>
+        <div class="crt-noise-band" aria-hidden="true"></div>
+        <div class="crt-glass" aria-hidden="true"></div>
+        <div class="crt-vignette" aria-hidden="true"></div>
+      </section>
+      <noscript><p class="noscript">記事の切り替えにはJavaScriptが必要です。</p></noscript>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

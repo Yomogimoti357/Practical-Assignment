@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="ブラウン管の映像表現を使ったWebポートフォリオと『Monitor』開発記録" />
+    <meta name="theme-color" content="#070604" />
+    <title>CRT Interactive Portfolio</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="home-page">
+    <main id="app" class="app" aria-label="ブラウン管風ポートフォリオ">
+      <section id="crt-screen" class="crt-screen" aria-label="ブラウン管風のWebサイト">
+        <nav class="crt-nav" aria-label="画面内ナビゲーション">
+          <button class="crt-nav__button is-active" type="button" data-target="home">HOME</button>
+          <button class="crt-nav__button" type="button" data-target="projects">PROJECTS</button>
+          <button class="crt-nav__button" type="button" data-target="about">ABOUT</button>
+          <button class="crt-nav__button" type="button" data-target="evaluations">FILES</button>
+        </nav>
+
+        <div id="crt-content" class="crt-content" tabindex="0">
+          <section id="home" class="screen-section screen-section--hero">
+            <div class="image-frame image-frame--hero"><img src="/assets/images/hero.png" alt="夜の街を描いた作品" /></div>
+            <div class="intro-copy">
+              <p class="eyebrow">VISUAL ARCHIVE / 2026</p>
+              <h1>BETWEEN<br />LIGHT &amp; STATIC</h1>
+              <p>画面をスクロールして作品をご覧ください。</p>
+              <button class="text-link" type="button" data-target="projects">VIEW PROJECTS <span aria-hidden="true">→</span></button>
+            </div>
+          </section>
+
+          <section id="projects" class="screen-section screen-section--project">
+            <div class="section-heading">
+              <p class="eyebrow">ORIGINAL PLANNING DOCUMENT</p>
+              <h2>
+                <a
+                  class="document-heading-link"
+                  href="./assets/documents/web-camera-body-linked-game-plan.pdf"
+                  download="Webカメラを用いた身体連動型ゲーム企画書.pdf"
+                >PROJECT PLAN<br />DOWNLOAD <span aria-hidden="true">↓</span></a>
+              </h2>
+            </div>
+            <div class="project-layout">
+              <a
+                class="image-frame image-frame--project document-cover"
+                href="./assets/documents/web-camera-body-linked-game-plan.pdf"
+                download="Webカメラを用いた身体連動型ゲーム企画書.pdf"
+                aria-label="身体連動型ゲーム企画書の原本PDFをダウンロード"
+              >
+                <img src="./assets/images/project-plan-cover.png" alt="Webカメラを用いた身体連動型ゲーム企画書の表紙" />
+                <span class="document-cover__label">DOWNLOAD ORIGINAL PDF</span>
+              </a>
+              <div class="project-copy">
+                <p class="project-number">DOCUMENT 01</p>
+                <h3>Webカメラを用いた身体連動型ゲーム</h3>
+                <p>企画の目的、身体入力システム、ゲームループ、UI・演出、テスト、最終ビルドまでをまとめた企画書の原本です。</p>
+                <dl class="project-meta"><div><dt>FORMAT</dt><dd>PDF</dd></div><div><dt>PAGES</dt><dd>9</dd></div></dl>
+                <a
+                  class="text-link"
+                  href="./assets/documents/web-camera-body-linked-game-plan.pdf"
+                  download="Webカメラを用いた身体連動型ゲーム企画書.pdf"
+                >DOWNLOAD PDF <span aria-hidden="true">↓</span></a>
+              </div>
+            </div>
+          </section>
+
+          <section id="about" class="screen-section screen-section--about">
+            <div><p class="eyebrow">PROJECT PLAN / SUMMARY</p><h2>BODY<br />AS INPUT</h2></div>
+            <div class="about-copy plan-summary">
+              <dl>
+                <div class="plan-summary__item plan-summary__item--purpose">
+                  <dt>目的</dt>
+                  <dd>Webカメラから取得したプレイヤーの身体情報をゲーム入力として利用し、キーボードやマウスによる通常操作と組み合わせることで、現実の身体状態がゲーム内の出来事へ直接影響する体験を実現します。</dd>
+                </div>
+                <div class="plan-summary__item">
+                  <dt>コンセプト</dt>
+                  <dd>カメラ映像を表示するためではなく、プレイヤーの存在、位置、移動量、姿勢の変化、静止状態などを取得するインターフェースとして扱います。</dd>
+                </div>
+                <div class="plan-summary__item">
+                  <dt>処理構成</dt>
+                  <dd>「映像取得・身体情報認識・動作判定・ゲーム内反応」を分離し、複数フレームの結果から一時的なノイズや照明変化による誤判定を抑えます。</dd>
+                </div>
+                <div class="plan-summary__item">
+                  <dt>プレイ体験</dt>
+                  <dd>通常操作で探索し、身体入力が必要な状況へ対応し、その判定結果によってイベントや画面・音響が変化する流れを、ゲーム全体の基本ループとして構築します。</dd>
+                </div>
+                <div class="plan-summary__item">
+                  <dt>完成目標</dt>
+                  <dd>カメラ設定、エラーからの復帰、状態管理、UI、演出を統合し、開発環境以外のPCでも初回起動から終了まで進行できる完成版を目指します。</dd>
+                </div>
+              </dl>
+              <button class="text-link" type="button" data-target="evaluations">VIEW GAME FILES <span aria-hidden="true">↓</span></button>
+            </div>
+          </section>
+
+          <section id="evaluations" class="screen-section screen-section--evaluations">
+            <div class="evaluation-heading">
+              <div><p class="eyebrow">MONITOR / DEVELOPMENT ARCHIVE</p><h2>SELECT<br />A FILE</h2></div>
+              <p>ゲーム『Monitor』の設計と実装を、5つの観点から紹介します。読みたい項目を選択すると、専用の記事ページへ移動します。</p>
+            </div>
+            <nav class="evaluation-grid" aria-label="評価記事を選択">
+              <a class="evaluation-card" href="./articles.html?article=0"><span>01</span><small>BODY INPUT</small><strong>身体入力</strong><em>OPEN FILE →</em></a>
+              <a class="evaluation-card" href="./articles.html?article=1"><span>02</span><small>GAME DESIGN</small><strong>ゲーム構成</strong><em>OPEN FILE →</em></a>
+              <a class="evaluation-card" href="./articles.html?article=2"><span>03</span><small>USABILITY</small><strong>操作・安定性</strong><em>OPEN FILE →</em></a>
+              <a class="evaluation-card" href="./articles.html?article=3"><span>04</span><small>VISUALS</small><strong>視覚表現</strong><em>OPEN FILE →</em></a>
+              <a class="evaluation-card" href="./articles.html?article=4"><span>05</span><small>COMPLETION</small><strong>完成度</strong><em>OPEN FILE →</em></a>
+            </nav>
+          </section>
+        </div>
+
+        <canvas id="crt-noise" class="crt-noise" aria-hidden="true"></canvas>
+        <div class="crt-scanlines" aria-hidden="true"></div>
+        <div class="crt-noise-band" aria-hidden="true"></div>
+        <div class="crt-glass" aria-hidden="true"></div>
+        <div class="crt-vignette" aria-hidden="true"></div>
+      </section>
+      <noscript><p class="noscript">ページは表示できますが、ナビゲーション操作にはJavaScriptが必要です。</p></noscript>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
