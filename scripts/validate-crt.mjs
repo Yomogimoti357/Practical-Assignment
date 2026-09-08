@@ -21,6 +21,11 @@ const checks = {
     /class="home-page"/.test(homeHtml) &&
     /class="articles-page"/.test(articlesHtml) &&
     /articles:\s*`\$\{projectRoot\}\/articles\.html`/.test(viteConfig),
+  "GitHub PagesのサブパスでCSS・JS・画像を読み込める":
+    [homeHtml, articlesHtml].every((html) => !/(?:href|src)="\/(?:src|assets)\//.test(html)) &&
+    /href="\.\/src\/styles\.css"/.test(homeHtml) &&
+    /src="\.\/src\/main\.js"/.test(homeHtml) &&
+    /src="\.\/assets\/images\/hero\.png"/.test(homeHtml),
   "以前のトップページ構成を復元している":
     ["home", "projects", "about"].every((id) => homeHtml.includes(`id="${id}"`)) &&
     /hero\.png/.test(homeHtml) &&
