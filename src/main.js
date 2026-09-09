@@ -10,6 +10,7 @@ const gameMenuImage = new URL("../img_graphic/2026-09-09_042128.png", import.met
 const completionImage = new URL("../img/2026-08-17_174403.png", import.meta.url).href;
 const projectVideo1 = new URL("../video/Video Project 1.mp4", import.meta.url).href;
 const projectVideo2 = new URL("../video/Video Project 2.mp4", import.meta.url).href;
+const projectVideo3 = new URL("../video/Video Project 3.mp4", import.meta.url).href;
 
 const CRT_CONFIG = Object.freeze({
   noiseFPS: 120,
@@ -82,8 +83,18 @@ const ARTICLES = Object.freeze([
     ],
     tags: ["設定保存", "例外処理", "負荷対策"],
     image: "",
-    video: projectVideo2,
-    videoLabel: "Webカメラ映像による状態判別を紹介するProject 2プレイ動画",
+    videos: [
+      {
+        src: projectVideo2,
+        label: "PROJECT 2",
+        ariaLabel: "Webカメラ映像による状態判別を紹介するProject 2プレイ動画",
+      },
+      {
+        src: projectVideo3,
+        label: "PROJECT 3",
+        ariaLabel: "Webカメラ映像による状態判別を紹介するProject 3プレイ動画",
+      },
+    ],
     imageAlt: "カメラ選択と設定を行う画面",
     imageHint: "カメラ選択または設定画面を配置",
   },
@@ -145,6 +156,8 @@ const imageCaption = document.querySelector("#image-caption");
 const articleVisual = document.querySelector(".article-visual");
 const imageGallery = document.querySelector("#image-gallery");
 const imageGalleryTabs = document.querySelector("#image-gallery-tabs");
+const videoGallery = document.querySelector("#video-gallery");
+const videoGalleryTabs = document.querySelector("#video-gallery-tabs");
 const articleTabs = document.querySelector("#article-tabs");
 const previousArticle = document.querySelector("#previous-article");
 const nextArticle = document.querySelector("#next-article");
@@ -157,6 +170,7 @@ const mobileScreen = window.matchMedia("(max-width: 760px)");
 
 let activeArticleIndex = 0;
 let activeImageIndex = 0;
+let activeVideoIndex = 0;
 let noiseImage = null;
 let noisePixels = null;
 let noiseSeed = (Date.now() ^ 0xa5a5a5a5) >>> 0;
@@ -213,15 +227,21 @@ function showArticle(index, moveFocus = false) {
   }));
 
   const articleImages = article.images ?? (article.image ? [{ src: article.image, alt: article.imageAlt }] : []);
+  const articleVideos = article.videos ?? (article.video
+    ? [{ src: article.video, label: "VIDEO 01", ariaLabel: article.videoLabel }]
+    : []);
   activeImageIndex = 0;
+  activeVideoIndex = 0;
   imageGalleryTabs?.replaceChildren();
+  videoGalleryTabs?.replaceChildren();
   articleVideo.pause();
   articleVideo.hidden = true;
   articleVideo.removeAttribute("src");
   articleVideo.removeAttribute("aria-label");
   articleVisual.classList.remove("is-video");
+  articleVisual.classList.remove("has-video-gallery");
 
-  if (article.video) {
+  if (articleVideos.length > 0) {
     articleImage.removeAttribute("src");
     articleImage.alt = "";
     articleImage.hidden = true;
@@ -229,12 +249,29 @@ function showArticle(index, moveFocus = false) {
     imageGallery.hidden = true;
     articleVisual.classList.remove("has-gallery");
     articleVisual.classList.add("is-video");
-    articleVideo.src = article.video;
-    articleVideo.setAttribute("aria-label", article.videoLabel);
+    articleVisual.classList.toggle("has-video-gallery", articleVideos.length > 1);
     articleVideo.hidden = false;
-    articleVideo.load();
-    imageCaption.textContent = article.videoLabel;
+    showArticleVideo(articleVideos, 0);
+    videoGallery.hidden = articleVideos.length < 2;
+
+    if (articleVideos.length > 1) {
+      const videoFragment = document.createDocumentFragment();
+      articleVideos.forEach((video, videoIndex) => {
+        const button = document.createElement("button");
+        const number = String(videoIndex + 1).padStart(2, "0");
+        button.className = "video-gallery__button";
+        button.type = "button";
+        button.setAttribute("aria-label", `${video.label}を再生`);
+        button.setAttribute("aria-pressed", String(videoIndex === 0));
+        button.classList.toggle("is-active", videoIndex === 0);
+        button.innerHTML = `<small>VIDEO ${number}</small><strong>${video.label}</strong>`;
+        button.addEventListener("click", () => showArticleVideo(articleVideos, videoIndex));
+        videoFragment.append(button);
+      });
+      videoGalleryTabs.append(videoFragment);
+    }
   } else if (articleImages.length > 0) {
+    videoGallery.hidden = true;
     showGalleryImage(articleImages, 0);
     articleImage.hidden = false;
     imagePlaceholder.hidden = true;
@@ -261,6 +298,7 @@ function showArticle(index, moveFocus = false) {
       imageGalleryTabs.append(galleryFragment);
     }
   } else {
+    videoGallery.hidden = true;
     articleImage.removeAttribute("src");
     articleImage.alt = "";
     articleImage.hidden = true;
@@ -281,6 +319,21 @@ function showArticle(index, moveFocus = false) {
   articleBody.scrollTop = 0;
   tabs[activeArticleIndex]?.scrollIntoView({ block: "nearest", inline: "nearest" });
   if (moveFocus) tabs[activeArticleIndex]?.focus();
+}
+
+function showArticleVideo(videos, index) {
+  activeVideoIndex = (index + videos.length) % videos.length;
+  const selectedVideo = videos[activeVideoIndex];
+  articleVideo.pause();
+  articleVideo.src = selectedVideo.src;
+  articleVideo.setAttribute("aria-label", selectedVideo.ariaLabel);
+  articleVideo.load();
+  imageCaption.textContent = `${String(activeVideoIndex + 1).padStart(2, "0")} / ${String(videos.length).padStart(2, "0")} — ${selectedVideo.ariaLabel}`;
+  videoGalleryTabs?.querySelectorAll(".video-gallery__button").forEach((button, buttonIndex) => {
+    const selected = buttonIndex === activeVideoIndex;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
 }
 
 function showGalleryImage(images, index) {

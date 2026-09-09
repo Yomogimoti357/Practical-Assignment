@@ -78,15 +78,21 @@ const checks = {
     /2026-08-17_174403\.png/.test(javascript) &&
     /EVALUATION 01[\s\S]*?video:\s*projectVideo1/.test(javascript) &&
     /EVALUATION 02[\s\S]*?image:\s*gameMenuImage/.test(javascript) &&
-    /EVALUATION 03[\s\S]*?video:\s*projectVideo2/.test(javascript) &&
+    /EVALUATION 03[\s\S]*?videos:\s*\[[\s\S]*?src:\s*projectVideo2/.test(javascript) &&
     /EVALUATION 05[\s\S]*?image:\s*completionImage/.test(javascript),
   "No.3にWebカメラ判定とゲームオーバー条件を明記している":
     /EVALUATION 03 \/ USABILITY[\s\S]*?Webカメラから取得した映像[\s\S]*?現実の身体を動かす[\s\S]*?ゲームオーバー/.test(
       javascript,
     ),
+  "No.3でProject 2とProject 3の動画を切り替えられる":
+    /Video Project 3\.mp4/.test(javascript) &&
+    /EVALUATION 03 \/ USABILITY[\s\S]*?videos:\s*\[[\s\S]*?projectVideo2[\s\S]*?projectVideo3/.test(javascript) &&
+    /id="video-gallery"/.test(articlesHtml) &&
+    /function showArticleVideo\(/.test(javascript) &&
+    /className = "video-gallery__button"/.test(javascript),
   "動画を操作可能なHTMLで表示する":
     /<video id="article-video"[\s\S]*?controls[\s\S]*?playsinline/.test(articlesHtml) &&
-    /articleVideo\.src = article\.video/.test(javascript) &&
+    /articleVideo\.src = selectedVideo\.src/.test(javascript) &&
     /articleVideo\.load\(\)/.test(javascript),
   "通常の静的サーバーでもメディアURLを解決できる":
     /new URL\("\.\.\/video\/Video Project 1\.mp4", import\.meta\.url\)\.href/.test(javascript) &&

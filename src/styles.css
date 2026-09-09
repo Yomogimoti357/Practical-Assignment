@@ -204,6 +204,7 @@ button:focus-visible,
 
 .article-visual.has-gallery figcaption { bottom: clamp(72px, 11cqh, 106px); }
 .article-visual.is-video figcaption { top: 0.8rem; bottom: auto; }
+.article-visual.has-video-gallery #article-video { height: calc(100% - clamp(64px, 10cqh, 96px)); }
 
 .image-gallery {
   position: absolute;
@@ -250,6 +251,52 @@ button:focus-visible,
 
 .image-gallery__button.is-active { box-shadow: inset 0 -3px var(--signal); }
 .image-gallery__button img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.video-gallery {
+  position: absolute;
+  z-index: 4;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: clamp(64px, 10cqh, 96px);
+  padding: 7px clamp(8px, 1cqw, 14px);
+  border-top: 1px solid rgb(243 240 229 / 32%);
+  background: linear-gradient(180deg, rgb(5 6 5 / 82%), rgb(5 6 5 / 98%));
+  backdrop-filter: blur(6px);
+}
+
+.video-gallery[hidden] { display: none; }
+
+.video-gallery__tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(6px, 0.7cqw, 12px);
+  width: 100%;
+  height: 100%;
+}
+
+.video-gallery__button {
+  display: grid;
+  min-width: 0;
+  align-content: center;
+  gap: 0.35rem;
+  padding: 0.55rem clamp(10px, 1.1cqw, 18px);
+  border: 1px solid rgb(243 240 229 / 24%);
+  color: var(--muted);
+  background: #090b09;
+  text-align: left;
+  cursor: pointer;
+  opacity: 0.72;
+}
+
+.video-gallery__button small { color: var(--signal); font: 700 0.66rem / 1 monospace; letter-spacing: 0.12em; }
+.video-gallery__button strong { overflow: hidden; color: var(--ink); font-size: clamp(0.82rem, 1cqw, 1rem); text-overflow: ellipsis; white-space: nowrap; }
+
+.video-gallery__button:hover,
+.video-gallery__button:focus-visible,
+.video-gallery__button.is-active { border-color: var(--signal); opacity: 1; }
+
+.video-gallery__button.is-active { box-shadow: inset 0 -3px var(--signal); }
 
 .article-arrow {
   position: absolute;
@@ -489,6 +536,9 @@ button:focus-visible,
   .article-picker__heading span, .article-visual figcaption { display: none; }
   .image-gallery { height: 58px; padding: 5px 7px; }
   .image-gallery__button { flex-basis: 74px; }
+  .video-gallery { height: 58px; padding: 5px 7px; }
+  .article-visual.has-video-gallery #article-video { height: calc(100% - 58px); }
+  .video-gallery__button { padding: 0.35rem 0.55rem; }
   .article-tabs { grid-auto-columns: minmax(138px, 43vw); height: calc(100% - 17px); }
   .article-tab { grid-template-columns: 42px minmax(0, 1fr); }
 }
